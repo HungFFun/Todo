@@ -1,18 +1,20 @@
-import { React, useState } from "react";
-import { Input, Button } from "antd";
+import { React, useState, useContext } from "react";
+import { Input } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import { TodoContext } from "../contexts/TodoContext";
 
-function AddTodoItem(props) {
+const AddTodoItem = (props) => {
   const [title, setTitle] = useState("");
-  const addTodo = props.addTodoFunc;
+  const { addTodoInArr } = useContext(TodoContext);
+  // const addTodo = props.addTodoFunc;
   const addTitle = (event) => {
     setTitle(event.target.value);
   };
   const addSingleTodo = (event) => {
     event.preventDefault();
     if (title !== "") {
-      addTodo(title);
+      addTodoInArr(title);
       setTitle("");
     }
   };
@@ -26,15 +28,12 @@ function AddTodoItem(props) {
           value={title}
           onChange={addTitle}
         />
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
       </form>
     </div>
   );
-}
-AddTodoItem.prototype = {
-  addTodoFunc: PropTypes.func.isRequired,
 };
+// AddTodoItem.prototype = {
+//   addTodoFunc: PropTypes.func.isRequired,
+// };
 
 export default AddTodoItem;

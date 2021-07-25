@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./TodoItem.scss";
 
-function TodoItem(props) {
+const TodoItem = (props) => {
   const { item } = props;
   const [data, setData] = useState(item);
   return (
@@ -14,6 +14,6 @@ function TodoItem(props) {
       </h3>
     </div>
   );
-}
+};
 
 export default TodoItem;

@@ -1,10 +1,11 @@
 import { React, useState, useContext } from "react";
 import { Input } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { FileAddOutlined } from "@ant-design/icons";
 // import PropTypes from "prop-types";
-import { TodoContext } from "../contexts/TodoContext";
+import { TodoContext } from "../../contexts/TodoContext";
 
 const AddTodoItem = (props) => {
+  const { idNote } = props;
   const [title, setTitle] = useState("");
   const { addTodoInArr } = useContext(TodoContext);
   // const addTodo = props.addTodoFunc;
@@ -14,7 +15,7 @@ const AddTodoItem = (props) => {
   const addSingleTodo = (event) => {
     event.preventDefault();
     if (title !== "") {
-      addTodoInArr(title);
+      addTodoInArr(title, idNote);
       setTitle("");
     }
   };
@@ -24,7 +25,7 @@ const AddTodoItem = (props) => {
         <Input
           size="large"
           placeholder="large size"
-          prefix={<UserOutlined />}
+          prefix={<FileAddOutlined />}
           value={title}
           onChange={addTitle}
         />

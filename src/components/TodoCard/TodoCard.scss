@@ -1,0 +1,16 @@
+.cart-custom {
+  margin: 10px !important;
+  min-width: 200px;
+  max-width: 350px;
+  float: left;
+}
+.item-un-complete {
+  .complete-false {
+    display: none;
+  }
+}
+.item-complete {
+  .complete-true {
+    display: none;
+  }
+}

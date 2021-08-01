@@ -1,13 +1,10 @@
 import { React } from "react";
-import TodoCard from "./components/TodoCard";
+import Home from "./page/Home/Home";
 
-import TodoContextProvider from "./contexts/TodoContext";
 function App() {
   return (
-    <div className="container">
-      <TodoContextProvider>
-        <TodoCard></TodoCard>
-      </TodoContextProvider>
+    <div>
+      <Home></Home>
     </div>
   );
 }

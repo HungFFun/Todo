@@ -7,27 +7,34 @@ const TodoItem = (props) => {
   const { item } = props;
   const [data, setData] = useState();
   const { updateStatus } = useContext(TodoContext);
-  const handleChange = () => {
-    setData({ ...data, isCompleted: !data.isCompleted });
-    updateStatus(data._id);
+  const handleChange = (idWork) => {
+    updateStatus(idWork);
   };
   React.useEffect(() => {
     if (item) {
       setData(item);
     }
-    return () => {
-      localStorage.setItem("thoat trang", "true");
-    };
   }, [item]);
   return (
     <div>
-      <Checkbox
-        checked={data?.isCompleted}
-        onChange={handleChange}
-        className={data?.isCompleted ? "is-complete" : "is-complete-null"}
-      >
-        {data?.titleWork}
-      </Checkbox>
+      {data &&
+        data.map((item, index) => {
+          return (
+            <div
+              className={
+                item.isCompleted === true ? "complete-true" : "complete-false"
+              }
+              key={index}
+            >
+              <Checkbox
+                checked={item?.isCompleted}
+                onChange={() => handleChange(item._id)}
+              >
+                {item?.titleWork}
+              </Checkbox>
+            </div>
+          );
+        })}
     </div>
   );
 };

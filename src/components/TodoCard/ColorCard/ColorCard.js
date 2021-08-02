@@ -32,8 +32,8 @@ const ColorCard = (props) => {
         <Col span={6} onClick={() => updateBackgroundColor(idNote, "#aecbfa")}>
           <Tag color="#aecbfa" className="color-custom"></Tag>
         </Col>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#d7aefb")}>
-          <Tag color="#d7aefb" className="color-custom"></Tag>
+        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#fff")}>
+          <Tag color="#fff" className="color-custom"></Tag>
         </Col>
       </Row>
     </div>

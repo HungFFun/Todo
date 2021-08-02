@@ -1,6 +1,6 @@
 import { React, useState, useContext } from "react";
 import TodoItem from "../TodoItem/TodoItem";
-import { Card } from "antd";
+import { Card, Popover } from "antd";
 import {
   PushpinTwoTone,
   EllipsisOutlined,
@@ -8,12 +8,14 @@ import {
 } from "@ant-design/icons";
 import "./TodoCard.scss";
 import { TodoContext } from "../../contexts/TodoContext";
+import ColorCard from "./ColorCard/ColorCard";
 
 const TodoCard = (props) => {
   //load data
   const [note, setNote] = useState(props.note);
   const pinColor = props.pinColor;
   const { updatePin } = useContext(TodoContext);
+
   return (
     <div>
       <Card
@@ -28,7 +30,10 @@ const TodoCard = (props) => {
         className="cart-custom"
         style={{ backgroundColor: `${note.color}` }}
         actions={[
-          <SettingOutlined key="setting" />,
+          <Popover content={<ColorCard idNote={note._id} />} trigger="hover">
+            <SettingOutlined key="setting" />
+          </Popover>,
+
           <EllipsisOutlined key="ellipsis" />,
         ]}
       >

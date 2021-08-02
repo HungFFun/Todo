@@ -46,13 +46,26 @@ const TodoContextProvider = ({ children }) => {
         getData();
       });
   };
+  const updateBackgroundColor = (idNote, color) => {
+    axios
+      .post(`http://localhost:3000/api/update-background-color`, {
+        idNote: idNote,
+        color: color,
+      })
+      .then((res) => {
+        console.log(res.data);
+        getData();
+      });
+  };
 
   const todoContextData = {
     data,
     addTodoInArr,
     updateStatus,
     updatePin,
+    updateBackgroundColor,
   };
+
   return (
     <TodoContext.Provider value={todoContextData}>
       {children}

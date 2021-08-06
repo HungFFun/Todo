@@ -2,10 +2,16 @@ import React, { useContext } from "react";
 import TodoCard from "../../components/TodoCard/TodoCard";
 import { Row, Col } from "antd";
 import { TodoContext } from "../../contexts/TodoContext";
+import CreateNote from "../../components/CreateNote/CreateNote";
 const Note = () => {
   const { data } = useContext(TodoContext);
   return (
     <div>
+      <Row>
+        <Col span={24}>
+          <CreateNote></CreateNote>
+        </Col>
+      </Row>
       <Row>
         <Col span={24}>
           {data.map((item, index) => {

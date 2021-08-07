@@ -1,5 +1,5 @@
 import { Button, Card, Col, Input, Popover, Row } from "antd";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./CreateNote.scss";
 import {
   CheckSquareOutlined,
@@ -10,15 +10,26 @@ import {
   PushpinTwoTone,
 } from "@ant-design/icons";
 import ColorNewNote from "./ColorNewNote/ColorNewNote";
+import { TodoContext } from "../../contexts/TodoContext";
 const CreateNote = () => {
   const [isCreate, setIsCreate] = useState(true);
   const [listWork, setListWork] = useState([]);
   const [title, setTitle] = useState("");
   const [workTitle, setWorkTitle] = useState("");
   const [colorNote, setColorNote] = useState("#fff");
+  const { createNewNote } = useContext(TodoContext);
+
   const openCreate = () => {
-    setIsCreate(!isCreate);
-    setWorkTitle([]);
+    if (listWork.length > 0) {
+      createNewNote(title, listWork, colorNote);
+      setIsCreate(!isCreate);
+      setListWork([]);
+      setTitle("");
+    } else {
+      setIsCreate(!isCreate);
+      setListWork([]);
+      setTitle("");
+    }
   };
 
   const addWorkTitle = (event) => {
@@ -42,6 +53,10 @@ const CreateNote = () => {
   const getColorNote = (ibColor) => {
     setColorNote(ibColor);
   };
+  React.useEffect(() => {
+    getColorNote();
+  });
+
   return (
     <div className={"create-note"}>
       {isCreate ? (
@@ -71,8 +86,10 @@ const CreateNote = () => {
                     placeholder="Tiêu đề"
                     value={title}
                     onChange={addTitle}
+                    style={{ backgroundColor: `${colorNote}` }}
                   />
                 }
+                style={{ backgroundColor: `${colorNote}` }}
                 className={"note-card"}
                 actions={[
                   <Popover

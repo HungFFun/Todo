@@ -1,6 +1,6 @@
 import { React, useContext } from "react";
 import TodoItem from "../TodoItem/TodoItem";
-import { Card, Popover } from "antd";
+import { Card, Menu, Popover } from "antd";
 import {
   PushpinTwoTone,
   EllipsisOutlined,
@@ -14,7 +14,7 @@ const TodoCard = (props) => {
   //load data
   const note = props.note;
   const pinColor = props.pinColor;
-  const { updatePin } = useContext(TodoContext);
+  const { updatePin, deleteNote } = useContext(TodoContext);
   return (
     <div>
       <Card
@@ -32,7 +32,18 @@ const TodoCard = (props) => {
           <Popover content={<ColorCard idNote={note._id} />} trigger="hover">
             <BgColorsOutlined key="setting" />
           </Popover>,
-          <EllipsisOutlined key="ellipsis" />,
+          <Popover
+            content={
+              <Menu>
+                <Menu.Item onClick={() => deleteNote(note._id)}>
+                  Xóa note
+                </Menu.Item>
+              </Menu>
+            }
+            trigger="hover"
+          >
+            <EllipsisOutlined key="ellipsis" />,
+          </Popover>,
         ]}
       >
         <div className="item-complete">

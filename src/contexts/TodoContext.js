@@ -3,11 +3,12 @@ import axios from "axios";
 export const TodoContext = createContext();
 
 const TodoContextProvider = ({ children }) => {
+  const host = "http://localhost:3000/api";
   //state
   const [data, setData] = useState([]);
   const getData = () => {
     try {
-      axios.get(`http://localhost:3000/api/notes`).then((res) => {
+      axios.get(`${host}/notes`).then((res) => {
         setData(res.data);
       });
     } catch (error) {}
@@ -18,7 +19,7 @@ const TodoContextProvider = ({ children }) => {
 
   const addTodoInArr = (title, idNote) => {
     axios
-      .post(`http://localhost:3000/api/add-work`, {
+      .post(`${host}/add-work`, {
         idUser: "610172cd6320ac5e2eb7fb53",
         idNote: idNote,
         titleWork: title,
@@ -28,17 +29,13 @@ const TodoContextProvider = ({ children }) => {
       });
   };
   const updateStatus = (idWork) => {
-    axios
-      .post(`http://localhost:3000/api/update-status`, {
-        idWork: idWork,
-      })
-      .then((res) => {
-        getData();
-      });
+    axios.put(`${host}/update-status-work/${idWork}`).then((res) => {
+      getData();
+    });
   };
   const updatePin = (idNote) => {
     axios
-      .post(`http://localhost:3000/api/update-pin`, {
+      .post(`${host}/update-pin`, {
         idUser: "610172cd6320ac5e2eb7fb53",
         idNote: idNote,
       })
@@ -48,22 +45,40 @@ const TodoContextProvider = ({ children }) => {
   };
   const updateBackgroundColor = (idNote, color) => {
     axios
-      .post(`http://localhost:3000/api/update-background-color`, {
-        idNote: idNote,
+      .put(`${host}/update-background-color/${idNote}`, {
         color: color,
       })
       .then((res) => {
-        console.log(res.data);
         getData();
       });
   };
 
+  const createNewNote = (title, workList, colorNote) => {
+    axios
+      .post(`${host}/create-note`, {
+        idUser: "610172cd6320ac5e2eb7fb53",
+        title: title,
+        workList: workList,
+        colorNote: colorNote,
+      })
+      .then((res) => {
+        getData();
+      });
+  };
+
+  const deleteNote = (idNote) => {
+    axios.delete(`${host}/delete-note/${idNote}`).then((res) => {
+      getData();
+    });
+  };
   const todoContextData = {
     data,
     addTodoInArr,
     updateStatus,
     updatePin,
     updateBackgroundColor,
+    createNewNote,
+    deleteNote,
   };
 
   return (

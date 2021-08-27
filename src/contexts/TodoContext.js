@@ -6,6 +6,7 @@ const TodoContextProvider = ({ children }) => {
   const host = "http://localhost:3000/api";
   //state
   const [data, setData] = useState([]);
+  
   const getData = () => {
     try {
       axios.get(`${host}/notes`).then((res) => {
@@ -71,6 +72,11 @@ const TodoContextProvider = ({ children }) => {
       getData();
     });
   };
+  const findNoteById = (idNote) => {
+    axios.post(`${host}/note`, { id: idNote }).then((res) => {
+      return res.data;
+    });
+  };
   const todoContextData = {
     data,
     addTodoInArr,
@@ -79,6 +85,7 @@ const TodoContextProvider = ({ children }) => {
     updateBackgroundColor,
     createNewNote,
     deleteNote,
+    findNoteById,
   };
 
   return (

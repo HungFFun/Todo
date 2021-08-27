@@ -1,10 +1,20 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import TodoCard from "../../components/TodoCard/TodoCard";
 import { Row, Col } from "antd";
-import { TodoContext } from "../../contexts/TodoContext";
 import CreateNote from "../../components/CreateNote/CreateNote";
+
+import { useSelector, useDispatch } from "react-redux";
+import { getTodos } from "../../store/actions/todoActions";
+
 const Note = () => {
-  const { data } = useContext(TodoContext);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.todos);
+  const { todos } = data;
+
+  useEffect(() => {
+    dispatch(getTodos());
+  }, [dispatch]);
+
   return (
     <div>
       <Row>
@@ -14,7 +24,7 @@ const Note = () => {
       </Row>
       <Row>
         <Col span={24}>
-          {data.map((item, index) => {
+          {todos?.map((item, index) => {
             if (!item.pin) return null;
             return (
               <TodoCard pinColor={"#FFD700"} key={index} note={item}></TodoCard>
@@ -24,7 +34,7 @@ const Note = () => {
       </Row>
       <Row>
         <Col span={24}>
-          {data.map((item, index) => {
+          {todos?.map((item, index) => {
             if (item.pin) return null;
             return (
               <TodoCard pinColor={"#D3D3D3"} key={index} note={item}></TodoCard>

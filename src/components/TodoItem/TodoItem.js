@@ -1,24 +1,30 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect } from "react";
 import "./TodoItem.scss";
-import { TodoContext } from "../../contexts/TodoContext";
 import { Checkbox } from "antd";
 
-const TodoItem = (props) => {
-  const { item } = props;
-  const [data, setData] = useState();
-  const { updateStatus } = useContext(TodoContext);
-  const handleChange = (idWork) => {
-    updateStatus(idWork);
-  };
-  React.useEffect(() => {
-    if (item) {
-      setData(item);
+import { useSelector, useDispatch } from "react-redux";
+import { getWork, updateStatusWork } from "../../store/actions/work.actions";
+
+const TodoItem = ({ item }) => {
+  // const [data, setData] = useState();
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.work);
+  const { work } = data;
+  const idNote = { idNote: item };
+  useEffect(() => {
+    if(idNote){
+    dispatch(getWork(idNote));
     }
-  }, [item]);
+  }, []);
+  console.log(work);
+  const handleChange = (idWork) => {
+    dispatch(updateStatusWork(idWork));
+  };
+
   return (
     <div>
-      {data &&
-        data.map((item, index) => {
+      {work &&
+        work.map((item, index) => {
           return (
             <div
               className={

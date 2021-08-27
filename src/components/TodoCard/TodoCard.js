@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useContext, useState } from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import { Card, Menu, Popover } from "antd";
 import {
@@ -9,12 +9,18 @@ import {
 import "./TodoCard.scss";
 import { TodoContext } from "../../contexts/TodoContext";
 import ColorCard from "./ColorCard/ColorCard";
+import ModalTodo from "./Modal";
 
-const TodoCard = (props) => {
+const TodoCard = ({ note, pinColor }) => {
   //load data
-  const note = props.note;
-  const pinColor = props.pinColor;
   const { updatePin, deleteNote } = useContext(TodoContext);
+  const [visible, setVisible] = useState(false);
+  const onHandleModal = () => {
+    setVisible(true);
+  };
+  const onHandleCancel = () => {
+    setVisible(false);
+  };
   return (
     <div>
       <Card
@@ -26,7 +32,7 @@ const TodoCard = (props) => {
             onClick={() => updatePin(note._id)}
           />
         }
-        className="cart-custom"
+        className={`cart-custom ${visible ? "cart-none" : {}}`}
         style={{ backgroundColor: `${note.color}` }}
         actions={[
           <Popover content={<ColorCard idNote={note._id} />} trigger="hover">
@@ -46,14 +52,23 @@ const TodoCard = (props) => {
           </Popover>,
         ]}
       >
-        <div className="item-complete">
-          <TodoItem item={note.work}></TodoItem>
-        </div>
-        <hr></hr>
-        <div className="item-un-complete">
-          <TodoItem item={note.work}></TodoItem>
+        <div onClick={() => onHandleModal()}>
+          <div className="item-complete">
+            <TodoItem item={note._id}></TodoItem>
+          </div>
+          <hr></hr>
+          <div className="item-un-complete">
+            <TodoItem item={note._id}></TodoItem>
+          </div>
         </div>
       </Card>
+
+      <ModalTodo
+        key={note._id}
+        visible={visible}
+        onHandleCancel={onHandleCancel}
+        note={note}
+      />
     </div>
   );
 };

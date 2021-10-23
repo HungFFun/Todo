@@ -26,6 +26,10 @@ class TodosServices {
     return axios.request({
       method: "PUT",
       url: `${url}/update-pin/${idNote}`,
+      data: {
+        idUser: "610172cd6320ac5e2eb7fb53",
+        idNote: idNote,
+      },
     });
   };
 }

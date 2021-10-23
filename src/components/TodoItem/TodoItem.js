@@ -1,24 +1,38 @@
 import React, { useEffect } from "react";
-import "./TodoItem.scss";
-import { Checkbox } from "antd";
+import "./style.scss";
+import { Checkbox, Col, Row } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import {
+  getWork,
+  updateStatusWork,
+  removeWork,
+} from "../../store/actions/work.actions";
 
-import { useSelector, useDispatch } from "react-redux";
-import { getWork, updateStatusWork } from "../../store/actions/work.actions";
-
-const TodoItem = ({ item }) => {
-  // const [data, setData] = useState();
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.work);
-  const { work } = data;
+const TodoItem = ({ item, work, setWork }) => {
   const idNote = { idNote: item };
   useEffect(() => {
-    if(idNote){
-    dispatch(getWork(idNote));
+    if (idNote) {
+      getWork(idNote).then((res) => setWork(res));
     }
   }, []);
-  console.log(work);
+
   const handleChange = (idWork) => {
-    dispatch(updateStatusWork(idWork));
+    work.filter(function (item) {
+      if (item._id === idWork) {
+        item.isCompleted = !item.isCompleted;
+        setWork([...work]);
+        updateStatusWork(idWork);
+      }
+      return null;
+    });
+  };
+  const handleRemove = (idWork) => {
+    const index = work.findIndex((item) => item._id === idWork);
+    if (index < 0) return;
+    const newList = [...work];
+    newList.splice(index, 1);
+    removeWork(idWork);
+    setWork(newList);
   };
 
   return (
@@ -26,18 +40,22 @@ const TodoItem = ({ item }) => {
       {work &&
         work.map((item, index) => {
           return (
-            <div
-              className={
-                item.isCompleted === true ? "complete-true" : "complete-false"
-              }
-              key={index}
-            >
-              <Checkbox
-                checked={item?.isCompleted}
-                onChange={() => handleChange(item._id)}
-              >
-                {item?.titleWork}
-              </Checkbox>
+            <div key={index}>
+              <Row className="row-item">
+                <Col span={20}>
+                  <Checkbox
+                    checked={item?.isCompleted}
+                    onChange={() => handleChange(item._id)}
+                  >
+                    {item?.titleWork}
+                  </Checkbox>
+                </Col>
+                <Col span={4}>
+                  <div className="icon-remove">
+                    <CloseOutlined onClick={() => handleRemove(item._id)} />
+                  </div>
+                </Col>
+              </Row>
             </div>
           );
         })}

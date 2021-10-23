@@ -8,3 +8,12 @@
     display: none;
   }
 }
+
+.icon-remove {
+  display: none;
+}
+.row-item:hover {
+  .icon-remove {
+    display: block;
+  }
+}

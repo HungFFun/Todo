@@ -8,8 +8,7 @@ import { getTodos } from "../../store/actions/todoActions";
 
 const Note = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.todos);
-  const { todos } = data;
+  const { todos } = useSelector((state) => state.todos);
 
   useEffect(() => {
     dispatch(getTodos());
@@ -25,7 +24,7 @@ const Note = () => {
       <Row>
         <Col span={24}>
           {todos?.map((item, index) => {
-            if (!item.pin) return null;
+            if (item.pin === true) return null;
             return (
               <TodoCard pinColor={"#FFD700"} key={index} note={item}></TodoCard>
             );
@@ -35,7 +34,7 @@ const Note = () => {
       <Row>
         <Col span={24}>
           {todos?.map((item, index) => {
-            if (item.pin) return null;
+            if (item.pin === false) return null;
             return (
               <TodoCard pinColor={"#D3D3D3"} key={index} note={item}></TodoCard>
             );

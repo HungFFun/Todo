@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Popover } from "antd";
 import { BgColorsOutlined } from "@ant-design/icons";
 import "./style.scss";
@@ -20,17 +20,15 @@ const ModalTodo = ({ visible, onHandleCancel, note, setAddItem }) => {
       ]}
     >
       <div className="item-complete">
-        <TodoItem item={note._id}></TodoItem>
+        <TodoItem item={note._id} addState={addState}></TodoItem>
       </div>
-      <hr></hr>
-      <div className="item-un-complete">
-        <TodoItem item={note._id}></TodoItem>
-      </div>
+
       <AddTodoItem
         style={{ marginTop: "10px" }}
         idNote={note._id}
         color={note.color}
         setAddItem={setAddItem}
+        setAddState={setAddState}
       ></AddTodoItem>
     </Modal>
   );

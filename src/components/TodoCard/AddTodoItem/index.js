@@ -1,33 +1,25 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { Input } from "antd";
 import "./style.scss";
-import { addTodo, getTodos } from "../../../store/actions/todoActions";
+import { addTodo } from "../../../store/actions/todoActions";
+import { getWork } from "../../../store/actions/work.actions";
 
-import { useDispatch, useSelector } from "react-redux";
-const AddTodoItem = ({ idNote, color }) => {
+const AddTodoItem = ({ idNote, color, setWork }) => {
   const [title, setTitle] = useState("");
-  const stateTodo = useSelector((state) => state.todos);
-  console.log(stateTodo);
-  const dispatch = useDispatch();
 
   const addTitle = (event) => {
     setTitle(event.target.value);
   };
-
   const addSingleTodo = (event) => {
     event.preventDefault();
     if (title !== "") {
-      const data = { titleWork: title, idNote: idNote };
-      dispatch(addTodo(data));
-      if (!stateTodo.isCreated) {
-        dispatch(getTodos());
-      }
-      setTitle("");
+      const data = { idNote: idNote, titleWork: title, isCompleted: false };
+      addTodo(data).then((res) => {
+        setTitle("");
+        getWork({ idNote }).then((resp) => setWork(resp));
+      });
     }
   };
-  useEffect(() => {
-    dispatch(getTodos());
-  }, [dispatch]);
 
   return (
     <div style={{ marginTop: "10px" }}>

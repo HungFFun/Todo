@@ -2,10 +2,8 @@ import {
   TODOS_CREATE_SUCCESS,
   TODOS_GET_ALL_PENDING,
   TODOS_GET_ALL_SUCCESS,
-  UPDATE_PIN_SUCCESS,
-  UPDATE_BACKGROUND_SUCCESS,
-  CREATE_NOTE_SUCCESS,
   TODOS_CREATE_PENDING,
+  RELOAD,
 } from "../constant/todos.constant";
 
 const initialState = {
@@ -35,29 +33,20 @@ const todosReducer = (state = initialState, action) => {
         isCreated: false,
       };
     }
+    case RELOAD: {
+      const newList = [...state.todos];
+      newList.filter(function (item) {
+        if (item._id === action.payload) {
+          item.pin = !item.pin;
+        }
+      });
+      return {
+        ...state,
+        todos: newList,
+        loading: false,
+      };
+    }
 
-    case UPDATE_PIN_SUCCESS: {
-      const { msg } = action.payload;
-      return {
-        ...state,
-        msg,
-        isCreated: true,
-      };
-    }
-    case UPDATE_BACKGROUND_SUCCESS: {
-      const { msg } = action.payload;
-      return {
-        ...state,
-        msg,
-      };
-    }
-    case CREATE_NOTE_SUCCESS: {
-      const { msg } = action.payload;
-      return {
-        ...state,
-        msg,
-      };
-    }
     default:
       return state;
   }

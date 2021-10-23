@@ -1,4 +1,4 @@
-import { React, useContext, useState } from "react";
+import { React, useEffect, useState } from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import { Card, Menu, Popover } from "antd";
 import {
@@ -7,20 +7,31 @@ import {
   BgColorsOutlined,
 } from "@ant-design/icons";
 import "./TodoCard.scss";
-import { TodoContext } from "../../contexts/TodoContext";
 import ColorCard from "./ColorCard/ColorCard";
-import ModalTodo from "./Modal";
+import AddTodoItem from "./AddTodoItem";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getTodos } from "../../store/actions/todoActions";
+import { updatePin } from "../../store/actions/todoActions";
 
 const TodoCard = ({ note, pinColor }) => {
-  //load data
-  const { updatePin, deleteNote } = useContext(TodoContext);
-  const [visible, setVisible] = useState(false);
-  const onHandleModal = () => {
-    setVisible(true);
+  const [work, setWork] = useState([]);
+
+  const dispatch = useDispatch();
+  const { todos } = useSelector((state) => state.todos);
+
+  useEffect(() => {
+    dispatch(getTodos());
+  }, [dispatch]);
+
+  const handleUpdatePin = (idNote) => {
+    updatePin(idNote);
+    dispatch({
+      type: "RELOAD",
+      payload: idNote,
+    });
   };
-  const onHandleCancel = () => {
-    setVisible(false);
-  };
+
   return (
     <div>
       <Card
@@ -29,10 +40,10 @@ const TodoCard = ({ note, pinColor }) => {
           <PushpinTwoTone
             twoToneColor={pinColor}
             style={{ fontSize: "25px" }}
-            onClick={() => updatePin(note._id)}
+            onClick={() => handleUpdatePin(note._id)}
           />
         }
-        className={`cart-custom ${visible ? "cart-none" : {}}`}
+        className={`cart-custom `}
         style={{ backgroundColor: `${note.color}` }}
         actions={[
           <Popover content={<ColorCard idNote={note._id} />} trigger="hover">
@@ -41,9 +52,7 @@ const TodoCard = ({ note, pinColor }) => {
           <Popover
             content={
               <Menu>
-                <Menu.Item onClick={() => deleteNote(note._id)}>
-                  Xóa note
-                </Menu.Item>
+                <Menu.Item>Xóa note</Menu.Item>
               </Menu>
             }
             trigger="hover"
@@ -52,23 +61,18 @@ const TodoCard = ({ note, pinColor }) => {
           </Popover>,
         ]}
       >
-        <div onClick={() => onHandleModal()}>
+        <div>
           <div className="item-complete">
-            <TodoItem item={note._id}></TodoItem>
+            <TodoItem item={note._id} setWork={setWork} work={work}></TodoItem>
           </div>
-          <hr></hr>
-          <div className="item-un-complete">
-            <TodoItem item={note._id}></TodoItem>
-          </div>
+          <AddTodoItem
+            style={{ marginTop: "10px" }}
+            idNote={note._id}
+            color={note.color}
+            setWork={setWork}
+          ></AddTodoItem>
         </div>
       </Card>
-
-      <ModalTodo
-        key={note._id}
-        visible={visible}
-        onHandleCancel={onHandleCancel}
-        note={note}
-      />
     </div>
   );
 };

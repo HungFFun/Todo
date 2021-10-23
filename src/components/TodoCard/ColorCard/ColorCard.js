@@ -3,8 +3,7 @@ import React from "react";
 import { TodoContext } from "../../../contexts/TodoContext";
 import "./ColorCard.scss";
 
-const ColorCard = (props) => {
-  const idNote = props.idNote;
+const ColorCard = ({ idNote }) => {
   const { updateBackgroundColor } = React.useContext(TodoContext);
   return (
     <div>

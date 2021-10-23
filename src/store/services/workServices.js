@@ -15,5 +15,11 @@ class workServices {
       url: `${url}/update-status-work/${idWork}`,
     });
   };
+  removeWork = (idWork) => {
+    return axios.request({
+      method: "DELETE",
+      url: `${url}/delete-work/${idWork}`,
+    });
+  };
 }
 export default workServices;

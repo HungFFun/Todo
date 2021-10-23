@@ -1,18 +1,9 @@
 import axios from "axios";
 import { url } from "../../api";
-import {
-  TODOS_CREATE_SUCCESS,
-  TODOS_GET_ALL_PENDING,
-  TODOS_GET_ALL_SUCCESS,
-  UPDATE_PIN_SUCCESS,
-  TODOS_CREATE_PENDING,
-} from "../constant/todos.constant";
+import { TODOS_GET_ALL_SUCCESS } from "../constant/todos.constant";
 import { todoServices } from "../services";
 
 export const getTodos = () => async (dispatch) => {
-  dispatch({
-    type: TODOS_GET_ALL_PENDING,
-  });
   todoServices
     .getAllTodos()
     .then((res) => {
@@ -28,33 +19,25 @@ export const getTodos = () => async (dispatch) => {
     .catch((err) => console.log(err.response.msg));
 };
 
-export const addTodo = (data) => async (dispatch) => {
-  dispatch({
-    type: TODOS_CREATE_PENDING,
-  });
-  todoServices
+export const addTodo = (data) => {
+  return todoServices
     .createTodos(data)
     .then((res) => {
-      const { status } = res;
+      const { status, data } = res;
       // eslint-disable-next-line eqeqeq
       if (status == 200) {
-        dispatch({
-          type: TODOS_CREATE_SUCCESS,
-        });
+        return data;
       }
     })
     .catch((err) => console.log(err?.response));
 };
-
-export const updatePin = (idNote) => async (dispatch) => {
-  todoServices
+export const updatePin = (idNote) => {
+  return todoServices
     .updatePin(idNote)
     .then((res) => {
-      const { status } = res;
+      const { status, data } = res;
       if (status === 200) {
-        dispatch({
-          type: UPDATE_PIN_SUCCESS,
-        });
+        return data;
       }
     })
     .catch((err) => console.log(err.response.msg));

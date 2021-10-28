@@ -6,10 +6,9 @@ import {
   getWork,
   updateStatusWork,
   removeWork,
-} from "../../store/actions/work.actions";
+} from "../../store/actions/workActions";
 
-const TodoItem = ({ item, work, setWork }) => {
-  const idNote = { idNote: item };
+const TodoItem = ({ idNote, work, setWork }) => {
   useEffect(() => {
     if (idNote) {
       getWork(idNote).then((res) => setWork(res));

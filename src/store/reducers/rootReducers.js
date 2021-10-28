@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import todoReducer from "./todoReducers";
-import workReducer from "./work.reducers";
+import noteReducer from "./noteReducers";
+import workReducer from "./workReducers";
 
 const rootReducer = combineReducers({
-  todos: todoReducer,
+  notes: noteReducer,
   work: workReducer,
 });
 export default rootReducer;

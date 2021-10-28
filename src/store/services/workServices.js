@@ -2,10 +2,16 @@ import axios from "axios";
 import { url } from "../../api";
 
 class workServices {
-  getWorkByIdNote = (data) => {
+  getWorkByIdNote = (idNote) => {
+    return axios.request({
+      method: "GET",
+      url: `${url}/work-by-note/${idNote}`,
+    });
+  };
+  createWord = (data) => {
     return axios.request({
       method: "POST",
-      url: `${url}/work-by-note`,
+      url: `${url}/add-work`,
       data,
     });
   };
@@ -15,6 +21,7 @@ class workServices {
       url: `${url}/update-status-work/${idWork}`,
     });
   };
+
   removeWork = (idWork) => {
     return axios.request({
       method: "DELETE",

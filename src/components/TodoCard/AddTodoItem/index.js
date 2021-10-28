@@ -1,22 +1,21 @@
 import { React, useState } from "react";
 import { Input } from "antd";
 import "./style.scss";
-import { addTodo } from "../../../store/actions/todoActions";
-import { getWork } from "../../../store/actions/work.actions";
+import { getWork, createWord } from "../../../store/actions/workActions";
 
 const AddTodoItem = ({ idNote, color, setWork }) => {
   const [title, setTitle] = useState("");
 
-  const addTitle = (event) => {
+  const titleNote = (event) => {
     setTitle(event.target.value);
   };
   const addSingleTodo = (event) => {
     event.preventDefault();
     if (title !== "") {
       const data = { idNote: idNote, titleWork: title, isCompleted: false };
-      addTodo(data).then((res) => {
+      createWord(data).then((res) => {
         setTitle("");
-        getWork({ idNote }).then((resp) => setWork(resp));
+        getWork(idNote).then((resp) => setWork(resp));
       });
     }
   };
@@ -28,7 +27,7 @@ const AddTodoItem = ({ idNote, color, setWork }) => {
           size="large"
           placeholder="Thêm công việc"
           value={title}
-          onChange={addTitle}
+          onChange={titleNote}
           style={{ backgroundColor: `${color}` }}
         />
       </form>

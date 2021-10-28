@@ -10,18 +10,16 @@ import "./TodoCard.scss";
 import ColorCard from "./ColorCard/ColorCard";
 import AddTodoItem from "./AddTodoItem";
 
-import { useDispatch, useSelector } from "react-redux";
-import { getTodos } from "../../store/actions/todoActions";
-import { updatePin } from "../../store/actions/todoActions";
+import { useDispatch } from "react-redux";
+import { getListNote, updatePin } from "../../store/actions/noteActions";
 
 const TodoCard = ({ note, pinColor }) => {
   const [work, setWork] = useState([]);
 
   const dispatch = useDispatch();
-  const { todos } = useSelector((state) => state.todos);
 
   useEffect(() => {
-    dispatch(getTodos());
+    dispatch(getListNote());
   }, [dispatch]);
 
   const handleUpdatePin = (idNote) => {
@@ -57,13 +55,17 @@ const TodoCard = ({ note, pinColor }) => {
             }
             trigger="hover"
           >
-            <EllipsisOutlined key="ellipsis" />,
+            <EllipsisOutlined key="ellipsis" />
           </Popover>,
         ]}
       >
         <div>
           <div className="item-complete">
-            <TodoItem item={note._id} setWork={setWork} work={work}></TodoItem>
+            <TodoItem
+              idNote={note._id}
+              setWork={setWork}
+              work={work}
+            ></TodoItem>
           </div>
           <AddTodoItem
             style={{ marginTop: "10px" }}

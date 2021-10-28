@@ -1,5 +1,5 @@
 import { Button, Card, Col, Input, Popover, Row } from "antd";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./CreateNote.scss";
 import {
   CheckSquareOutlined,
@@ -10,18 +10,20 @@ import {
   PushpinTwoTone,
 } from "@ant-design/icons";
 import ColorNewNote from "./ColorNewNote/ColorNewNote";
-import { TodoContext } from "../../contexts/TodoContext";
+import { createNewNote, getListNote } from "../../store/actions/noteActions";
+import { useDispatch } from "react-redux";
 const CreateNote = () => {
   const [isCreate, setIsCreate] = useState(true);
   const [listWork, setListWork] = useState([]);
   const [title, setTitle] = useState("");
   const [workTitle, setWorkTitle] = useState("");
   const [colorNote, setColorNote] = useState("#fff");
-  const { createNewNote } = useContext(TodoContext);
+  const dispatch = useDispatch();
 
   const openCreate = () => {
     if (listWork.length > 0) {
       createNewNote(title, listWork, colorNote);
+      dispatch(getListNote);
       setIsCreate(!isCreate);
       setListWork([]);
       setTitle("");
@@ -53,9 +55,6 @@ const CreateNote = () => {
   const getColorNote = (ibColor) => {
     setColorNote(ibColor);
   };
-  React.useEffect(() => {
-    getColorNote();
-  });
 
   return (
     <div className={"create-note"}>

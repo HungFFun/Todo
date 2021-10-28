@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 const ColorNewNote = (props) => {
   const ibColorNote = props.getIbColorFuc;
+
   const getIpColor = (ibColor) => {
     ibColorNote(ibColor);
   };

@@ -1,37 +1,45 @@
 import { Col, Row, Tag } from "antd";
 import React from "react";
-import { TodoContext } from "../../../contexts/TodoContext";
+import { useDispatch } from "react-redux";
+import { updateBackgroundColor } from "../../../store/actions/noteActions";
 import "./ColorCard.scss";
 
 const ColorCard = ({ idNote }) => {
-  const { updateBackgroundColor } = React.useContext(TodoContext);
+  // const { updateBackgroundColor } = React.useContext(TodoContext);
+
+  const dispatch = useDispatch();
+
+  const updateBackground = (idNote, color) => {
+    dispatch(updateBackgroundColor(idNote, color));
+  };
+
   return (
     <div>
       <Row>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#a7ffeb")}>
+        <Col span={6} onClick={() => updateBackground(idNote, "#a7ffeb")}>
           <Tag color="#a7ffeb" className="color-custom"></Tag>
         </Col>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#fff475")}>
+        <Col span={6} onClick={() => updateBackground(idNote, "#fff475")}>
           <Tag color="#fff475" className="color-custom"></Tag>
         </Col>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#f28b82")}>
+        <Col span={6} onClick={() => updateBackground(idNote, "#f28b82")}>
           <Tag color="#f28b82" className="color-custom"></Tag>
         </Col>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#fbbc04")}>
+        <Col span={6} onClick={() => updateBackground(idNote, "#fbbc04")}>
           <Tag color="#fbbc04" className="color-custom"></Tag>
         </Col>
       </Row>
       <Row>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#ccff90")}>
+        <Col span={6} onClick={() => updateBackground(idNote, "#ccff90")}>
           <Tag color="#ccff90" className="color-custom"></Tag>
         </Col>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#cbf0f8")}>
+        <Col span={6} onClick={() => updateBackground(idNote, "#cbf0f8")}>
           <Tag color="#cbf0f8" className="color-custom"></Tag>
         </Col>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#aecbfa")}>
+        <Col span={6} onClick={() => updateBackground(idNote, "#aecbfa")}>
           <Tag color="#aecbfa" className="color-custom"></Tag>
         </Col>
-        <Col span={6} onClick={() => updateBackgroundColor(idNote, "#fff")}>
+        <Col span={6} onClick={() => updateBackground(idNote, "#fff")}>
           <Tag color="#fff" className="color-custom"></Tag>
         </Col>
       </Row>

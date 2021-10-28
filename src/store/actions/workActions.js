@@ -12,7 +12,18 @@ export const getWork = (data) => {
     })
     .catch((err) => console.log(err.response));
 };
-
+export const createWord = (data) => {
+  return workServices
+    .createWord(data)
+    .then((res) => {
+      const { status, data } = res;
+      // eslint-disable-next-line eqeqeq
+      if (status === 200) {
+        return data;
+      }
+    })
+    .catch((err) => console.log(err?.response));
+};
 export const updateStatusWork = (idWork) => {
   return workServices
     .updateStatusWork(idWork)

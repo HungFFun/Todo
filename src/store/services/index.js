@@ -1,4 +1,4 @@
-import TodosServices from "./TodoServices";
+import NoteServices from "./noteServices";
 import WorkServices from "./workServices";
-export const todoServices = new TodosServices();
+export const noteServices = new NoteServices();
 export const workServices = new WorkServices();

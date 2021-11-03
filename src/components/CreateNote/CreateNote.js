@@ -23,7 +23,7 @@ const CreateNote = () => {
   const openCreate = () => {
     if (listWork.length > 0) {
       createNewNote(title, listWork, colorNote);
-      dispatch(getListNote);
+      dispatch(getListNote());
       setIsCreate(!isCreate);
       setListWork([]);
       setTitle("");

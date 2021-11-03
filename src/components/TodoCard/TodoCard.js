@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import { Card, Menu, Popover } from "antd";
 import {
@@ -11,21 +11,25 @@ import ColorCard from "./ColorCard/ColorCard";
 import AddTodoItem from "./AddTodoItem";
 
 import { useDispatch } from "react-redux";
-import { getListNote, updatePin } from "../../store/actions/noteActions";
+import { updatePin, deleteNote } from "../../store/actions/noteActions";
 
 const TodoCard = ({ note, pinColor }) => {
   const [work, setWork] = useState([]);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getListNote());
-  }, [dispatch]);
-
   const handleUpdatePin = (idNote) => {
     updatePin(idNote);
     dispatch({
       type: "RELOAD",
+      payload: idNote,
+    });
+  };
+
+  const handleDelteNote = (idNote) => {
+    deleteNote(idNote);
+    dispatch({
+      type: "DELETE_NOTE",
       payload: idNote,
     });
   };
@@ -50,7 +54,12 @@ const TodoCard = ({ note, pinColor }) => {
           <Popover
             content={
               <Menu>
-                <Menu.Item>Xóa note</Menu.Item>
+                <Menu.Item
+                  key={note._id}
+                  onClick={() => handleDelteNote(note._id)}
+                >
+                  Xóa note
+                </Menu.Item>
               </Menu>
             }
             trigger="hover"

@@ -37,5 +37,11 @@ class noteServices {
       },
     });
   };
+  deleteNote = (idNote) => {
+    return axios.request({
+      method: "DELETE",
+      url: `${url}/delete-note/${idNote}`,
+    });
+  };
 }
 export default noteServices;

@@ -5,6 +5,7 @@ import {
   NOTE_CREATE_PENDING,
   RELOAD,
   UPDATE_BACKGROUND_COLOR,
+  DELETE_NOTE,
 } from "../constant/note.constant";
 
 const initialState = {
@@ -40,6 +41,7 @@ const noteReducer = (state = initialState, action) => {
         if (item._id === action.payload) {
           item.pin = !item.pin;
         }
+        return null;
       });
       return {
         ...state,
@@ -53,7 +55,20 @@ const noteReducer = (state = initialState, action) => {
         if (item._id === action.payload.idNote) {
           item.color = action.payload.color;
         }
+        return null;
       });
+      return {
+        ...state,
+        notes: newList,
+        loading: false,
+      };
+    }
+    case DELETE_NOTE: {
+      const newList = [...state.notes];
+      const index = newList.findIndex((item) => item._id === action.payload);
+      console.log(index);
+      if (index < 0) return;
+      newList.splice(index, 1);
       return {
         ...state,
         notes: newList,

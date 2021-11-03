@@ -14,3 +14,5 @@ export const CREATE_NOTE_SUCCESS = `CREATE_NOTE_SUCCESS`;
 export const GET_ALL_WORK_ID = `GET_ALL_WORK_ID`;
 
 export const RELOAD = "RELOAD";
+
+export const DELETE_NOTE = "DELETE_NOTE";

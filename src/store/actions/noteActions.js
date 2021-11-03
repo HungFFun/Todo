@@ -58,3 +58,17 @@ export const createNewNote = (title, workList, colorNote) => {
       console.log(error.response);
     });
 };
+
+export const deleteNote = (idNote) => {
+  return noteServices
+    .deleteNote(idNote)
+    .then((res) => {
+      const { status, data } = res;
+      if (status === 200) {
+        return data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+};

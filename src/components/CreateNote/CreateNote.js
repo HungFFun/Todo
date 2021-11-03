@@ -6,7 +6,6 @@ import {
   EditOutlined,
   FileImageOutlined,
   BgColorsOutlined,
-  EllipsisOutlined,
   PushpinTwoTone,
 } from "@ant-design/icons";
 import ColorNewNote from "./ColorNewNote/ColorNewNote";
@@ -19,14 +18,17 @@ const CreateNote = () => {
   const [workTitle, setWorkTitle] = useState("");
   const [colorNote, setColorNote] = useState("#fff");
   const dispatch = useDispatch();
+  const [colorPin, setColorPin] = useState("#D3D3D3");
+  const [pin, setPin] = useState(false);
 
   const openCreate = () => {
     if (listWork.length > 0) {
-      createNewNote(title, listWork, colorNote);
-      dispatch(getListNote());
-      setIsCreate(!isCreate);
-      setListWork([]);
-      setTitle("");
+      createNewNote(title, listWork, colorNote, pin).then((res) => {
+        setIsCreate(!isCreate);
+        setListWork([]);
+        setTitle("");
+        dispatch(getListNote());
+      });
     } else {
       setIsCreate(!isCreate);
       setListWork([]);
@@ -54,6 +56,16 @@ const CreateNote = () => {
   };
   const getColorNote = (ibColor) => {
     setColorNote(ibColor);
+  };
+
+  const handleChangePin = () => {
+    if (colorPin === "#D3D3D3") {
+      setColorPin("#FFD700");
+      setPin(!pin);
+    } else {
+      setColorPin("#D3D3D3");
+      setPin(!pin);
+    }
   };
 
   return (
@@ -97,7 +109,6 @@ const CreateNote = () => {
                   >
                     <BgColorsOutlined key="setting" />
                   </Popover>,
-                  <EllipsisOutlined key="ellipsis" />,
                   <Button
                     type="text"
                     danger
@@ -107,7 +118,14 @@ const CreateNote = () => {
                     Đóng
                   </Button>,
                 ]}
-                extra={<PushpinTwoTone style={{ fontSize: "25px" }} />}
+                // icon pin
+                extra={
+                  <PushpinTwoTone
+                    twoToneColor={colorPin}
+                    style={{ fontSize: "25px" }}
+                    onClick={() => handleChangePin()}
+                  />
+                }
               >
                 {listWork &&
                   listWork.map((work, index) => {

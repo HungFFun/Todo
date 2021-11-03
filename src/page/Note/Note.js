@@ -23,7 +23,7 @@ const Note = () => {
       <Row>
         <Col span={24}>
           {notes?.map((item, index) => {
-            if (item.pin === true) return null;
+            if (!item.pin) return null;
             return (
               <TodoCard pinColor={"#FFD700"} key={index} note={item}></TodoCard>
             );
@@ -33,7 +33,7 @@ const Note = () => {
       <Row>
         <Col span={24}>
           {notes?.map((item, index) => {
-            if (item.pin === false) return null;
+            if (item.pin) return null;
             return (
               <TodoCard pinColor={"#D3D3D3"} key={index} note={item}></TodoCard>
             );

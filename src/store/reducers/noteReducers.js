@@ -66,7 +66,6 @@ const noteReducer = (state = initialState, action) => {
     case DELETE_NOTE: {
       const newList = [...state.notes];
       const index = newList.findIndex((item) => item._id === action.payload);
-      console.log(index);
       if (index < 0) return;
       newList.splice(index, 1);
       return {
@@ -75,7 +74,6 @@ const noteReducer = (state = initialState, action) => {
         loading: false,
       };
     }
-
     default:
       return state;
   }

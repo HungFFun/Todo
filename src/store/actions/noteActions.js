@@ -45,9 +45,9 @@ export const updateBackgroundColor = (idNote, color) => async (dispatch) => {
     });
 };
 
-export const createNewNote = (title, workList, colorNote) => {
+export const createNewNote = (title, workList, colorNote, pin) => {
   return noteServices
-    .createNewNote(title, workList, colorNote)
+    .createNewNote(title, workList, colorNote, pin)
     .then((res) => {
       const { status, data } = res;
       if (status === 200) {

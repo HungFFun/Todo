@@ -25,7 +25,7 @@ class noteServices {
       data: { color: color },
     });
   };
-  createNewNote = (title, workList, colorNote) => {
+  createNewNote = (title, workList, colorNote, pin) => {
     return axios.request({
       method: "POST",
       url: `${url}/create-note`,
@@ -34,6 +34,7 @@ class noteServices {
         title: title,
         workList: workList,
         colorNote: colorNote,
+        pin: pin,
       },
     });
   };

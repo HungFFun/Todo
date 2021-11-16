@@ -72,3 +72,30 @@ export const deleteNote = (idNote) => {
       console.log(error.response);
     });
 };
+export const trashNote = (idNote) => {
+  return noteServices
+    .trashNote(idNote)
+    .then((res) => {
+      const { status, data } = res;
+      if (status === 200) {
+        return data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+};
+
+export const storageNote = (idNote) => {
+  return noteServices
+    .storageNote(idNote)
+    .then((res) => {
+      const { status, data } = res;
+      if (status === 200) {
+        return data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+};

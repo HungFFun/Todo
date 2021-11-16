@@ -1,21 +1,27 @@
 import { React, useState } from "react";
-import TodoItem from "../TodoItem/TodoItem";
+import TodoItem from "../TodoItem";
 import { Card, Menu, Popover } from "antd";
 import {
   PushpinTwoTone,
   EllipsisOutlined,
   BgColorsOutlined,
 } from "@ant-design/icons";
-import "./TodoCard.scss";
-import ColorCard from "./ColorCard/ColorCard";
+import "./style.scss";
+import ColorCard from "./ColorCard";
 import AddTodoItem from "./AddTodoItem";
 
 import { useDispatch } from "react-redux";
-import { updatePin, deleteNote } from "../../store/actions/noteActions";
-
+import {
+  updatePin,
+  storageNote,
+  trashNote,
+} from "../../store/actions/noteActions";
+import nextId from "react-id-generator";
+import { useLocation } from "react-router-dom";
 const TodoCard = ({ note, pinColor }) => {
-  const [work, setWork] = useState([]);
+  const location = useLocation();
 
+  const [work, setWork] = useState([]);
   const dispatch = useDispatch();
 
   const handleUpdatePin = (idNote) => {
@@ -26,12 +32,35 @@ const TodoCard = ({ note, pinColor }) => {
     });
   };
 
-  const handleDelteNote = (idNote) => {
-    deleteNote(idNote);
+  const handleStorage = (idNote) => {
+    storageNote(idNote);
     dispatch({
-      type: "DELETE_NOTE",
+      type: "STORAGE_NOTE",
       payload: idNote,
     });
+  };
+  const handleTrash = (idNote) => {
+    trashNote(idNote);
+    dispatch({
+      type: "TRASH_NOTE",
+      payload: idNote,
+    });
+  };
+
+  const itemMenu = () => {
+    if (location.pathname === "/home") {
+      return (
+        <Menu.Item key={nextId()} onClick={() => handleStorage(note._id)}>
+          Thêm vào lưu trữ
+        </Menu.Item>
+      );
+    } else {
+      return (
+        <Menu.Item key={nextId()} onClick={() => handleStorage(note._id)}>
+          Bỏ lưu trữ
+        </Menu.Item>
+      );
+    }
   };
 
   return (
@@ -54,10 +83,9 @@ const TodoCard = ({ note, pinColor }) => {
           <Popover
             content={
               <Menu>
-                <Menu.Item
-                  key={note._id}
-                  onClick={() => handleDelteNote(note._id)}
-                >
+                {itemMenu()}
+
+                <Menu.Item key={nextId()} onClick={() => handleTrash(note._id)}>
                   Xóa note
                 </Menu.Item>
               </Menu>

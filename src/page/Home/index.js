@@ -1,6 +1,5 @@
 import React from "react";
-import MenuTodo from "../../components/Menu/MenuTodo";
-import TodoContextProvider from "../../contexts/TodoContext";
+import MenuTodo from "../../components/Menu";
 import "./style.scss";
 import { Row, Col } from "antd";
 import HeaderTodo from "../../components/Header/HeaderTodo";
@@ -24,9 +23,7 @@ const Home = () => {
           <Col span={20}>
             <Switch>
               <Route exact path="/home">
-                <TodoContextProvider>
-                  <Note></Note>
-                </TodoContextProvider>
+                <Note></Note>
               </Route>
               <Route path="/Storage">
                 <Storage />

@@ -6,6 +6,8 @@ import {
   RELOAD,
   UPDATE_BACKGROUND_COLOR,
   DELETE_NOTE,
+  TRASH_NOTE,
+  STORAGE_NOTE,
 } from "../constant/note.constant";
 
 const initialState = {
@@ -68,6 +70,34 @@ const noteReducer = (state = initialState, action) => {
       const index = newList.findIndex((item) => item._id === action.payload);
       if (index < 0) return;
       newList.splice(index, 1);
+      return {
+        ...state,
+        notes: newList,
+        loading: false,
+      };
+    }
+    case TRASH_NOTE: {
+      const newList = [...state.notes];
+      newList.filter(function (item) {
+        if (item._id === action.payload) {
+          item.trash = !item.trash;
+        }
+        return null;
+      });
+      return {
+        ...state,
+        notes: newList,
+        loading: false,
+      };
+    }
+    case STORAGE_NOTE: {
+      const newList = [...state.notes];
+      newList.filter(function (item) {
+        if (item._id === action.payload) {
+          item.storage = !item.storage;
+        }
+        return null;
+      });
       return {
         ...state,
         notes: newList,

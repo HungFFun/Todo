@@ -2,7 +2,7 @@ import { Col, Row, Tag } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { updateBackgroundColor } from "../../../store/actions/noteActions";
-import "./ColorCard.scss";
+import "./style.scss";
 
 const ColorCard = ({ idNote }) => {
   // const { updateBackgroundColor } = React.useContext(TodoContext);

@@ -43,5 +43,17 @@ class noteServices {
       url: `/delete-note/${idNote}`,
     });
   };
+  trashNote = (idNote) => {
+    return axios.request({
+      method: "PUT",
+      url: `/trash/${idNote}`,
+    });
+  };
+  storageNote = (idNote) => {
+    return axios.request({
+      method: "PUT",
+      url: `/storage/${idNote}`,
+    });
+  };
 }
 export default noteServices;

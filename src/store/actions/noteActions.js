@@ -17,7 +17,7 @@ export const getListNote = () => async (dispatch) => {
         });
       }
     })
-    .catch((err) => console.log(err.response.msg));
+    .catch((err) => console.log(err.response));
 };
 
 export const updatePin = (idNote) => {

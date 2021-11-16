@@ -1,31 +1,29 @@
-import axios from "axios";
-import { url } from "../../api";
-
+import axios from "../../utils/axios";
 class workServices {
   getWorkByIdNote = (idNote) => {
     return axios.request({
       method: "GET",
-      url: `${url}/work-by-note/${idNote}`,
+      url: `/work-by-note/${idNote}`,
     });
   };
   createWord = (data) => {
     return axios.request({
       method: "POST",
-      url: `${url}/add-work`,
+      url: `/add-work`,
       data,
     });
   };
   updateStatusWork = (idWork) => {
     return axios.request({
       method: "PUT",
-      url: `${url}/update-status-work/${idWork}`,
+      url: `/update-status-work/${idWork}`,
     });
   };
 
   removeWork = (idWork) => {
     return axios.request({
       method: "DELETE",
-      url: `${url}/delete-work/${idWork}`,
+      url: `/delete-work/${idWork}`,
     });
   };
 }

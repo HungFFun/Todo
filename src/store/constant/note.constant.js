@@ -12,3 +12,4 @@ export const RELOAD = "RELOAD";
 export const DELETE_NOTE = "DELETE_NOTE";
 export const TRASH_NOTE = "TRASH_NOTE";
 export const STORAGE_NOTE = "STORAGE_NOTE";
+export const CHANGE_LOCATION = "CHANGE_LOCATION";

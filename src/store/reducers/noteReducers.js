@@ -8,6 +8,7 @@ import {
   DELETE_NOTE,
   TRASH_NOTE,
   STORAGE_NOTE,
+  CHANGE_LOCATION,
 } from "../constant/note.constant";
 
 const initialState = {
@@ -101,6 +102,13 @@ const noteReducer = (state = initialState, action) => {
       return {
         ...state,
         notes: newList,
+        loading: false,
+      };
+    }
+    case CHANGE_LOCATION: {
+      return {
+        ...state,
+        notes: action.payload,
         loading: false,
       };
     }

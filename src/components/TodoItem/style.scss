@@ -1,0 +1,19 @@
+.item-un-complete {
+  .complete-false {
+    display: none;
+  }
+}
+.item-complete {
+  .complete-true {
+    display: none;
+  }
+}
+
+.icon-remove {
+  display: none;
+}
+.row-item:hover {
+  .icon-remove {
+    display: block;
+  }
+}

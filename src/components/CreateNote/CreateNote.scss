@@ -1,0 +1,45 @@
+.create-note {
+  margin: 30px;
+  display: grid;
+  justify-content: center;
+}
+.create-note {
+  .note-div {
+    border-radius: 7px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 550px;
+    height: 40px;
+  }
+}
+.create-note {
+  .note-div {
+    .card-row {
+      height: 100%;
+      align-content: center;
+      text-align: center;
+    }
+  }
+}
+
+.un-col {
+  text-align: start !important;
+  padding-left: 22px;
+}
+.create-note {
+  .note-card {
+    border-radius: 7px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 550px;
+  }
+}
+
+.create-note {
+  input {
+    border: none !important;
+  }
+}
+.create-note {
+  .ant-card-extra {
+    margin-left: 0 !important;
+  }
+}

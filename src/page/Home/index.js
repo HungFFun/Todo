@@ -22,7 +22,7 @@ const Home = () => {
           </Col>
           <Col span={20}>
             <Switch>
-              <Route exact path="/home">
+              <Route path="/home">
                 <Note />
               </Route>
               <Route path="/Storage">

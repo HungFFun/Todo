@@ -44,6 +44,10 @@ const Note = () => {
     const productsItem = [...notes];
     const [orderedProducts] = productsItem.splice(result.source.index, 1);
     productsItem.splice(destinationIndex, 0, orderedProducts);
+<<<<<<< HEAD
+=======
+    // setProducts(productsItem);
+>>>>>>> 328f409ec75bf12715df2a009d636cc0793d6c7b
     dispatch({
       type: "CHANGE_LOCATION",
       payload: productsItem,

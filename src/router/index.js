@@ -1,7 +1,7 @@
 import HomeLayout from "../page/Layout/HomeLayout";
 import LoginLayout from "../page/Layout/LoginLayout";
 
-export const layoutRouter = {
+export const layoutRoutes = {
   private: [
     {
       id: "privateRouter",

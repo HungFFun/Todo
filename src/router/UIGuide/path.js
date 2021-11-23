@@ -1,5 +1,5 @@
 export const pathUIGuide = {
-  HOME: "/home",
+  NOTE: "/",
   TRASH: "/trash",
   STORAGE: "/storage",
 };

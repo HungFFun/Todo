@@ -1,6 +1,6 @@
 import { Button, Card, Col, Input, Popover, Row } from "antd";
 import React, { useState } from "react";
-import "./CreateNote.scss";
+import "./style.scss";
 import {
   CheckSquareOutlined,
   EditOutlined,
@@ -8,10 +8,10 @@ import {
   BgColorsOutlined,
   PushpinTwoTone,
 } from "@ant-design/icons";
-import ColorNewNote from "./ColorNewNote/ColorNewNote";
+import ColorNewNote from "./ColorNewNote";
 import { createNewNote, getListNote } from "../../store/actions/noteActions";
 import { useDispatch } from "react-redux";
-const CreateNote = () => {
+const Index = () => {
   const [isCreate, setIsCreate] = useState(true);
   const [listWork, setListWork] = useState([]);
   const [title, setTitle] = useState("");
@@ -146,4 +146,4 @@ const CreateNote = () => {
   );
 };
 
-export default CreateNote;
+export default Index;

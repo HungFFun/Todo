@@ -10,20 +10,18 @@ import { createStore, applyMiddleware } from "redux";
 
 import thunk from "redux-thunk";
 import rootReducers from "./store/reducers/rootReducers";
-import { Router } from "react-router";
-import { createBrowserHistory } from "history";
+import { AppStore } from "./hooks";
 
 const store = createStore(rootReducers, applyMiddleware(thunk));
-const history = createBrowserHistory();
 
 ReactDOM.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <Router history={history}>
-      <App />
-    </Router>
-  </Provider>,
-  // </React.StrictMode>,
+  <AppStore.Provider>
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
+  </AppStore.Provider>,
   document.getElementById("root")
 );
 

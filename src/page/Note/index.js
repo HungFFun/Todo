@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import NoteCard from "../../components/NoteCard";
-import CreateNote from "../../components/CreateNote/CreateNote";
+import CreateNote from "../../components/CreateNote";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getListNote } from "../../store/actions/noteActions";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Col, Row } from "antd";
+
 const Note = () => {
   const dispatch = useDispatch();
   const { notes } = useSelector((state) => state.notes);
   const [destinationIndex, setDestinationIndex] = useState();
+
   useEffect(() => {
     dispatch(getListNote());
   }, [dispatch]);

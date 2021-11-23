@@ -1,24 +1,24 @@
-import Home from "../../page/Home";
 import Trash from "../../page/Trash";
 import Storage from "../../page/Storage";
+import Note from "../../page/Note";
 
 import { pathUIGuide } from "./path";
-export const routerUI = [
+export const routesUIGuide = [
   {
     id: "privateRoutes",
-    name: "HomePage",
-    path: pathUIGuide.HOME,
-    component: Home,
+    name: "NotePage",
+    path: pathUIGuide.NOTE,
+    component: Note,
   },
   {
     id: "privateRoutes",
-    name: "HomePage",
-    path: pathUIGuide.Trash,
+    name: "TrashPage",
+    path: pathUIGuide.TRASH,
     component: Trash,
   },
   {
     id: "privateRoutes",
-    name: "HomePage",
+    name: "StoragePage",
     path: pathUIGuide.STORAGE,
     component: Storage,
   },

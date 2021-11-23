@@ -48,7 +48,7 @@ const TodoCard = ({ note, pinColor }) => {
   };
 
   const itemMenu = () => {
-    if (location.pathname === "/home") {
+    if (location.pathname === "/") {
       return (
         <Menu.Item key={nextId()} onClick={() => handleStorage(note._id)}>
           Thêm vào lưu trữ

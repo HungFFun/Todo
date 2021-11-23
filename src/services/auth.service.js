@@ -29,3 +29,10 @@ export const register = (name, email, password) => {
       return res.data;
     });
 };
+export const getAccessToken = () => {
+  const token = JSON.parse(localStorage.getItem("user"));
+  if (token) {
+    return token.accessToken;
+  }
+  return "";
+};

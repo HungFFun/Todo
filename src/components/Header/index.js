@@ -5,12 +5,17 @@ import { MenuOutlined, FileZipTwoTone } from "@ant-design/icons";
 import { UserOutlined } from "@ant-design/icons";
 import { logout } from "../../services/auth.service";
 import { useHistory } from "react-router";
+import { useAppStore } from "../../hooks";
+
 const Index = () => {
   const history = useHistory();
+  const [appStore, updateAppStore] = useAppStore();
 
   const handleLogout = () => {
     logout();
-    history.push("/");
+    updateAppStore((draft) => {
+      draft.isLogin = false;
+    });
   };
   return (
     <div className="header-custom">

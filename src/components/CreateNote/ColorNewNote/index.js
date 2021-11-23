@@ -1,9 +1,9 @@
 import { Col, Row, Tag } from "antd";
 import React from "react";
-import "./ColorNewNote.scss";
+import "./style.scss";
 import PropTypes from "prop-types";
 
-const ColorNewNote = (props) => {
+const index = (props) => {
   const ibColorNote = props.getIbColorFuc;
 
   const getIpColor = (ibColor) => {
@@ -43,8 +43,8 @@ const ColorNewNote = (props) => {
   );
 };
 
-ColorNewNote.propTypes = {
+index.propTypes = {
   getIbColorFuc: PropTypes.func.isRequired,
 };
 
-export default ColorNewNote;
+export default index;

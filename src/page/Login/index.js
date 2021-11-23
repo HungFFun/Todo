@@ -6,8 +6,11 @@ import "./style.scss";
 import { login } from "../../services/auth.service";
 import { useDispatch } from "react-redux";
 import { getListNote } from "../../store/actions/noteActions";
+import { useAppStore } from "../../hooks";
+
 const Index = () => {
   const history = useHistory();
+  const [appStore, updateAppStore] = useAppStore();
 
   const dispatch = useDispatch();
   const OnFinish = async (values) => {
@@ -15,7 +18,9 @@ const Index = () => {
     const token = JSON.parse(localStorage.getItem("user"));
     if (token) {
       dispatch(getListNote());
-      history.push("/home");
+      updateAppStore((draft) => {
+        draft.isLogin = true;
+      });
     }
   };
 

@@ -1,22 +1,23 @@
 import React from "react";
 import { Menu } from "antd";
 import {
-  FileAddTwoTone,
+  FileAddOutlined,
   DeleteOutlined,
   DeliveredProcedureOutlined,
 } from "@ant-design/icons";
 import "./style.scss";
 import { Link } from "react-router-dom";
 
-const index = () => {
+const Index = ({ collapsed }) => {
   return (
     <div className={"custom-border-menu "}>
       <Menu
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
+        inlineCollapsed={collapsed}
       >
-        <Menu.Item key="1" icon={<FileAddTwoTone />}>
+        <Menu.Item key="1" icon={<FileAddOutlined />}>
           <Link to="/"> Ghi chú</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<DeliveredProcedureOutlined />}>
@@ -30,4 +31,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

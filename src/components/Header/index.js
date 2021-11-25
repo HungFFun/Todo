@@ -4,11 +4,9 @@ import { Avatar, Card, Dropdown, Menu } from "antd";
 import { MenuOutlined, FileZipTwoTone } from "@ant-design/icons";
 import { UserOutlined } from "@ant-design/icons";
 import { logout } from "../../services/auth.service";
-import { useHistory } from "react-router";
 import { useAppStore } from "../../hooks";
-
-const Index = () => {
-  const history = useHistory();
+import { Link } from "react-router-dom";
+const Index = ({ onHandleCollapsed }) => {
   const [appStore, updateAppStore] = useAppStore();
 
   const handleLogout = () => {
@@ -26,8 +24,11 @@ const Index = () => {
             marginRight: "20px",
             marginLeft: "15px",
           }}
+          onClick={() => onHandleCollapsed()}
         />
-        <FileZipTwoTone twoToneColor="#FFCC00" style={{ fontSize: "40px" }} />
+        <Link to="/">
+          <FileZipTwoTone twoToneColor="#FFCC00" style={{ fontSize: "40px" }} />
+        </Link>
         <Dropdown
           overlay={
             <Menu>

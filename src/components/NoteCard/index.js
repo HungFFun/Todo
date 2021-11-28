@@ -46,19 +46,36 @@ const TodoCard = ({ note, pinColor }) => {
       payload: idNote,
     });
   };
+  const handleTrashAndStorage = (idNote) => {
+    handleTrash(idNote);
+    handleStorage(idNote);
+  };
 
   const itemMenu = () => {
     if (location.pathname === "/") {
       return (
-        <Menu.Item key={nextId()} onClick={() => handleStorage(note._id)}>
-          Thêm vào lưu trữ
-        </Menu.Item>
+        <Menu>
+          <Menu.Item key={nextId()} onClick={() => handleStorage(note._id)}>
+            Thêm vào lưu trữ
+          </Menu.Item>
+          <Menu.Item key={nextId()} onClick={() => handleTrash(note._id)}>
+            Xóa note
+          </Menu.Item>
+        </Menu>
       );
     } else {
       return (
-        <Menu.Item key={nextId()} onClick={() => handleStorage(note._id)}>
-          Bỏ lưu trữ
-        </Menu.Item>
+        <Menu>
+          <Menu.Item key={nextId()} onClick={() => handleStorage(note._id)}>
+            Bỏ lưu trữ
+          </Menu.Item>
+          <Menu.Item
+            key={nextId()}
+            onClick={() => handleTrashAndStorage(note._id)}
+          >
+            Xóa note
+          </Menu.Item>
+        </Menu>
       );
     }
   };
@@ -80,18 +97,7 @@ const TodoCard = ({ note, pinColor }) => {
           <Popover content={<ColorCard idNote={note._id} />} trigger="hover">
             <BgColorsOutlined key="setting" />
           </Popover>,
-          <Popover
-            content={
-              <Menu>
-                {itemMenu()}
-
-                <Menu.Item key={nextId()} onClick={() => handleTrash(note._id)}>
-                  Xóa note
-                </Menu.Item>
-              </Menu>
-            }
-            trigger="hover"
-          >
+          <Popover content={itemMenu()} trigger="hover">
             <EllipsisOutlined key="ellipsis" />
           </Popover>,
         ]}

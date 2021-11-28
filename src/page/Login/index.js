@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Checkbox, Row, Col, Image } from "antd";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import "./style.scss";
 import { login } from "../../services/auth.service";
@@ -9,12 +9,15 @@ import { getListNote } from "../../store/actions/noteActions";
 import { useAppStore } from "../../hooks";
 
 const Index = () => {
-  const history = useHistory();
   const [appStore, updateAppStore] = useAppStore();
+  const [email, setEmail] = useState("hung@gmail.com");
+  const [password, setPass] = useState("123456");
 
   const dispatch = useDispatch();
   const OnFinish = async (values) => {
-    await login(values.email, values.password);
+    setEmail(values.email);
+    setPass(values.password);
+    await login(email, password);
     const token = JSON.parse(localStorage.getItem("user"));
     if (token) {
       dispatch(getListNote());
@@ -49,7 +52,6 @@ const Index = () => {
                     message: "The input is not valid E-mail!",
                   },
                   {
-                    required: true,
                     message: "Please input your E-mail!",
                   },
                 ]}
@@ -57,13 +59,13 @@ const Index = () => {
                 <Input
                   prefix={<MailOutlined className="site-form-item-icon" />}
                   placeholder="Email"
+                  defaultValue="hung@gmail.com"
                 />
               </Form.Item>
               <Form.Item
                 name="password"
                 rules={[
                   {
-                    required: true,
                     message: "Please input your Password!",
                   },
                 ]}
@@ -72,6 +74,7 @@ const Index = () => {
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
                   placeholder="Password"
+                  defaultValue="123456"
                 />
               </Form.Item>
               <Form.Item>
